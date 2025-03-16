@@ -1,0 +1,55 @@
+<section class="main-sec w-[75%] mx-auto">
+    <h1 class="text-center text-3xl text-green-600 ">Shop Cart</h1>
+   <div class="flex items-center justify-between">
+    <button (click)="ClearItems()" class="bg-red-900 border rounded text-xs text-white px-12 py-3">Clear Cart</button>
+   
+    <span class="text-green-600 font-medium mb-6 shadow p-3 text-xl">Total Cart Price : {{cartDetails.totalCartPrice | currency:'GBP'}}</span>
+   </div>
+
+
+
+@for(prod of cartDetails.products; track prod.product.id){
+    
+    <div class="grid md:grid-cols-[10%_minmax(0,1fr)] p-3 mt-4   border-b mb-2 shadow">
+        <!-- img -->
+        <div>
+            <img [src]="prod.product.imageCover" class="w-full h-[100px]  object-contain" [alt]="prod.product.title">
+        </div>
+
+        <!-- +info -->
+        <div class="flex ms-4 justify-between items-center">
+            <!-- info -->
+            <div>
+              <h3 class="font-medium mb-1" >{{prod.product.title}}</h3>
+             <h4 class="font-sans text-green-600 text-xl ">Price : {{prod.price |currency:'GBP'}}</h4>
+             <button class= " text-red-600 mt-2 shadow p-2 border-b"  (click)="removeItem(prod.product.id)"> <i class="fas fa-trash-can text-red-600"></i> Remove</button>
+            </div>
+
+
+
+            <!-- button -->
+            <div class="flex items-center gap-4">
+                <button (click)="updateCount( prod.product.id , prod.count +1)" class="text-green-600 text-3xl"><i class="fa-regular fa-square-plus"></i></button>
+                <span>{{prod.count}}</span>
+                <button (click)="updateCount( prod.product.id , prod.count -1)" class="text-green-600 text-3xl "><i class="fa-regular fa-square-minus"></i></button>
+            </div>
+        </div>
+
+    </div>
+}
+
+
+@if(cartDetails.products.length>0 ){<button class="btn-main my-4 w-full "  [routerLink]="['/checkout' ,cartDetails._id ]">CheckOut</button>
+}
+</section>
+
+
+
+
+
+
+
+
+
+
+
